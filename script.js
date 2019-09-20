@@ -32,7 +32,7 @@ function mostrarQuestao() {
 
     n++ // Chama a pergunta posterior
 
-    if(questions.length <= n){ // Verifica se existem mais perguntas, caso não exista, ele finaliza o quiz 
+    if(n >= questions.length){ // Verifica se existem mais perguntas, caso não exista, ele finaliza o quiz 
         finalizarQuiz(); 
         return; 
     } 
@@ -42,12 +42,17 @@ function mostrarQuestao() {
     var mostraResposta = document.getElementsByTagName("span") 
     var respostaMarcada = document.getElementsByName("resposta") 
  
+    /*AQUI COMEÇA A LASQUEIRA*/
 /**/   for (var i = 0; i < questions[n].options.length; i++) { // Adiciona aos pontos o valor da resposta da pergunta anterior escolhida 
-/**/    
-/**/    //Pegar o valor da resposta marcada e incrementar na variável points
+/**/       if (respostaMarcada[i].checked) { 
+/**/          points = points + Number(respostaMarcada[i].value) 
 /**/          respostaMarcada[i].checked = false // Deseleciona para a próxima pergunta (esse comando é top)
+/**/     }
 /**/    // Atualiza os valores de cada resposta 
-/**/    // Atualizar as respostas e perguntas
+/**/        mostraResposta[i].parentElement.children[0].value = questions[n].options[i].value // Atualiza as respostas 
+/**/        mostraResposta[i].innerHTML = questions[n].options[i].answer 
+/**/    }
+    /*EU PREFIRO VENDER ARTE NA PRAIA*/
 
 function finalizarQuiz() { 
     var pontuacaoGeral = Math.round((points / 15) * 100) 
